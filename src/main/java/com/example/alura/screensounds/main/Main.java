@@ -1,6 +1,10 @@
 package com.example.alura.screensounds.main;
 
+import java.util.Scanner;
+
 public class Main {
+
+    Scanner sc = new Scanner(System.in);
 
     public void mainMenu(){
         var userChoice = -1;
@@ -22,7 +26,7 @@ public class Main {
             case 1:
                 registerArtist();
                 break;
-            case 2:
+            /*case 2:
                 registerMusic();
                 break;
             case 3:
@@ -33,7 +37,7 @@ public class Main {
                 break;
             case 5:
                 searchArtistInfos();
-                break;
+                break;*/
             case 9:
                 System.out.println();
                 System.out.println("Saindo...");
@@ -45,10 +49,18 @@ public class Main {
     }
 
     private void registerArtist() {
-        System.out.print("Nome do artista: ");
+        char userChoice = 0;
+        while(userChoice != 'n') {
+            System.out.print("Nome do artista: ");
+            var artist = sc.nextLine();
+            System.out.print("Qual o tipo do artista: ");
+            var artistType = sc.nextLine();
+            System.out.print("Você deseja adicionar outro artista?");
+            userChoice = sc.next().charAt(0);
+        }
     }
 
-    private void registerMusic() {
+    /*private void registerMusic() {
     }
 
     private void musicList() {
@@ -58,5 +70,5 @@ public class Main {
     }
 
     private void searchArtistInfos() {
-    }
+    }*/
 }
