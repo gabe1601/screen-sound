@@ -35,6 +35,7 @@ public class Main {
                 searchArtistInfos();
                 break;
             case 9:
+                System.out.println();
                 System.out.println("Saindo...");
                 break;
             default:
@@ -43,19 +44,19 @@ public class Main {
 
     }
 
-    private void searchArtistInfos() {
-    }
-
-    private void searchSongsToArtist() {
-    }
-
-    private void musicList() {
+    private void registerArtist() {
+        System.out.print("Nome do artista: ");
     }
 
     private void registerMusic() {
     }
 
-    private void registerArtist() {
+    private void musicList() {
     }
 
+    private void searchSongsToArtist() {
+    }
+
+    private void searchArtistInfos() {
+    }
 }
