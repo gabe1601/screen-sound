@@ -12,7 +12,7 @@
 	<artifactId>screensounds</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>screensounds</name>
-	<description>Screensounds is a project from Alura&apos;s course</description>
+	<description>Screensounds is a project from Aluras course</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>

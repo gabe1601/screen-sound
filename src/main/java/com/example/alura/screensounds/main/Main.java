@@ -1,6 +1,11 @@
 package com.example.alura.screensounds.main;
 
+import com.example.alura.screensounds.model.Artist;
+import com.example.alura.screensounds.model.Category;
+
 import java.util.Scanner;
+
+import static java.lang.Integer.parseInt;
 
 public class Main {
 
@@ -20,30 +25,32 @@ public class Main {
                                     
                     9 - Sair
                     """;
-        }
-
-        switch (userChoice){
-            case 1:
-                registerArtist();
-                break;
-            /*case 2:
-                registerMusic();
-                break;
-            case 3:
-                musicList();
-                break;
-            case 4:
-                searchSongsToArtist();
-                break;
-            case 5:
-                searchArtistInfos();
-                break;*/
-            case 9:
-                System.out.println();
-                System.out.println("Saindo...");
-                break;
-            default:
-                System.out.println("Opção inválida");    
+            System.out.println(menu);
+            System.out.print("Digite a sua escolha: ");
+            userChoice = parseInt(sc.nextLine());
+            switch (userChoice) {
+                case 1:
+                    registerArtist();
+                    break;
+                /*case 2:
+                    registerMusic();
+                    break;
+                case 3:
+                    musicList();
+                    break;
+                case 4:
+                    searchSongsToArtist();
+                    break;
+                case 5:
+                    searchArtistInfos();
+                    break;*/
+                case 9:
+                    System.out.println();
+                    System.out.println("Saindo...");
+                    break;
+                default:
+                    System.out.println("Opção inválida");
+            }
         }
 
     }
@@ -54,9 +61,10 @@ public class Main {
             System.out.print("Nome do artista: ");
             var artist = sc.nextLine();
             System.out.print("Qual o tipo do artista: ");
-            var artistType = sc.nextLine();
+            Category artistType = Category.valueOf(sc.nextLine());
             System.out.print("Você deseja adicionar outro artista?");
             userChoice = sc.next().charAt(0);
+            Artist artists = new Artist(artist, artistType);
         }
     }
 
