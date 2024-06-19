@@ -2,14 +2,14 @@ package com.example.alura.screensounds.main;
 
 import com.example.alura.screensounds.model.Artist;
 import com.example.alura.screensounds.model.Category;
+import com.example.alura.screensounds.repository.Repository;
 
 import java.util.Scanner;
 
-import static java.lang.Integer.parseInt;
-
 public class Main {
 
-    Scanner sc = new Scanner(System.in);
+    private Scanner sc = new Scanner(System.in);
+    private Repository repository;
 
     public void mainMenu(){
         var userChoice = -1;
@@ -27,12 +27,13 @@ public class Main {
                     """;
             System.out.println(menu);
             System.out.print("Digite a sua escolha: ");
-            userChoice = parseInt(sc.nextLine());
+            userChoice = sc.nextInt();
+            sc.nextLine();
             switch (userChoice) {
                 case 1:
                     registerArtist();
                     break;
-                /*case 2:
+                case 2:
                     registerMusic();
                     break;
                 case 3:
@@ -43,7 +44,7 @@ public class Main {
                     break;
                 case 5:
                     searchArtistInfos();
-                    break;*/
+                    break;
                 case 9:
                     System.out.println();
                     System.out.println("Saindo...");
@@ -61,14 +62,19 @@ public class Main {
             System.out.print("Nome do artista: ");
             var artist = sc.nextLine();
             System.out.print("Qual o tipo do artista: ");
-            Category artistType = Category.valueOf(sc.nextLine());
-            System.out.print("Você deseja adicionar outro artista?");
-            userChoice = sc.next().charAt(0);
-            Artist artists = new Artist(artist, artistType);
+            var artistType = sc.nextLine();
+            Category category = Category.stringConvert(artistType);
+            System.out.print("Você deseja adicionar outro artista? (s/n)");
+            userChoice = sc.next().toLowerCase().charAt(0);
+            sc.nextLine();
+            Artist artists = new Artist(artist, category);
+            //problema ao salvar no repositório, preisca realizar o debug e ver o que está tentando salvar
+            repository.save(artists);
+            System.out.println(artists);
         }
     }
 
-    /*private void registerMusic() {
+    private void registerMusic() {
     }
 
     private void musicList() {
@@ -78,5 +84,5 @@ public class Main {
     }
 
     private void searchArtistInfos() {
-    }*/
+    }
 }
