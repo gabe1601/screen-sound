@@ -2,14 +2,19 @@ package com.example.alura.screensounds.main;
 
 import com.example.alura.screensounds.model.Artist;
 import com.example.alura.screensounds.model.Category;
-import com.example.alura.screensounds.repository.Repository;
+import com.example.alura.screensounds.model.Music;
+import com.example.alura.screensounds.repository.SoundRepository;
 
 import java.util.Scanner;
 
 public class Main {
 
     private Scanner sc = new Scanner(System.in);
-    private Repository repository;
+    private SoundRepository repository;
+
+    public Main(SoundRepository repository){
+        this.repository = repository;
+    }
 
     public void mainMenu(){
         var userChoice = -1;
@@ -53,7 +58,6 @@ public class Main {
                     System.out.println("Opção inválida");
             }
         }
-
     }
 
     private void registerArtist() {
@@ -68,13 +72,25 @@ public class Main {
             userChoice = sc.next().toLowerCase().charAt(0);
             sc.nextLine();
             Artist artists = new Artist(artist, category);
-            //problema ao salvar no repositório, preisca realizar o debug e ver o que está tentando salvar
+            System.out.println(artists);
             repository.save(artists);
             System.out.println(artists);
         }
     }
 
     private void registerMusic() {
+        char userChoice = 0;
+        while (userChoice != 'n'){
+            System.out.print("Nome da música: ");
+            var music = sc.nextLine();
+            System.out.print("Album: ");
+            var album = sc.nextLine();
+            System.out.print("Artista: ");
+            var artist = sc.nextLine();
+
+            Music musics = new Music(music, album, artist);
+            System.out.println(musics);
+        }
     }
 
     private void musicList() {

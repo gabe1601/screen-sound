@@ -16,23 +16,20 @@ public class Artist {
     private String name;
     @Enumerated(EnumType.STRING)
     private Category artistType;
-    @OneToMany(mappedBy = "artistName", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "artist", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Music> musics = new ArrayList<>();
-
-    public Artist(){
-    }
 
     public Artist(String name, Category artistType){
         this.name = name;
         this.artistType = artistType;
     }
 
-    public Long getId() {
-        return id;
+    public String getName() {
+        return name;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String toString(){

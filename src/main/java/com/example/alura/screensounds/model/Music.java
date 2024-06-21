@@ -11,37 +11,19 @@ public class Music {
     private Long id;
     private String musicName;
     private String album;
+    private String artistName;
     @ManyToOne
-    private Artist artistName;
+    private Artist artist;
 
-    public Music(){
-    }
-
-    public Music(String musicName, String album, Artist artistName){
+    public Music(String musicName, String album, String artistName){
         this.musicName = musicName;
         this.album = album;
-        this.artistName = artistName;
-    }
-
-    public Artist getArtistName() {
-        return artistName;
-    }
-
-    public void setArtistName(Artist artistName) {
-        this.artistName = artistName;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+        this.artistName = artist.getName();
     }
 
     public String toString (){
         return "Música: " + musicName
                 + " / album: " + album
-                + " / artista: " + artistName;
+                + " / artista: " + artist;
     }
 }
