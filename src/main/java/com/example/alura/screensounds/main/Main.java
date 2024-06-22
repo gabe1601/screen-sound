@@ -5,12 +5,16 @@ import com.example.alura.screensounds.model.Category;
 import com.example.alura.screensounds.model.Music;
 import com.example.alura.screensounds.repository.SoundRepository;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 
 public class Main {
 
     private Scanner sc = new Scanner(System.in);
     private SoundRepository repository;
+    private Music music = new Music();
 
     public Main(SoundRepository repository){
         this.repository = repository;
@@ -81,19 +85,38 @@ public class Main {
     private void registerMusic() {
         char userChoice = 0;
         while (userChoice != 'n'){
+
             System.out.print("Nome da música: ");
             var music = sc.nextLine();
             System.out.print("Album: ");
             var album = sc.nextLine();
             System.out.print("Artista: ");
             var artist = sc.nextLine();
-
             Music musics = new Music(music, album, artist);
-            System.out.println(musics);
+            Optional<Artist>artistMusic = repository.findByNameContainingIgnoreCase(artist);
+
+            if(artistMusic.isPresent()){
+                List<Music> allMusics =new ArrayList<>();
+                allMusics.add(musics);
+
+                var artistFound = artistMusic.get();
+                artistFound.setMusics(allMusics);
+                repository.save(artistFound);
+
+                System.out.println("Música registrada!");
+                allMusics.forEach(System.out::println);
+                System.out.print("Deseja cadastrar outra música?(s/n) ");
+                userChoice = sc.next().charAt(0);
+                sc.nextLine();
+            }else{
+                System.out.println("Registre o artista! ");
+                registerArtist();
+            }
         }
     }
-
     private void musicList() {
+        List<Artist> artists = repository.findMusicByIdEquals(1);
+        artists.forEach(a -> System.out.println(a.getMusics()));
     }
 
     private void searchSongsToArtist() {

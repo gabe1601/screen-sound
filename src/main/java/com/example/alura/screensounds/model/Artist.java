@@ -19,17 +19,21 @@ public class Artist {
     @OneToMany(mappedBy = "artist", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Music> musics = new ArrayList<>();
 
+    public Artist(){
+    }
+
     public Artist(String name, Category artistType){
         this.name = name;
         this.artistType = artistType;
     }
 
-    public String getName() {
-        return name;
+    public void setMusics(List<Music> musics) {
+        musics.forEach(m -> m.setArtist(this));
+        this.musics = musics;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public List<Music> getMusics() {
+        return musics;
     }
 
     public String toString(){
