@@ -11,17 +11,15 @@ public class Music {
     private Long id;
     private String musicName;
     private String album;
-    private String artistName;
     @ManyToOne
     private Artist artist;
 
     public Music(){
     }
 
-    public Music(String musicName, String album, String artistName){
+    public Music(String musicName, String album) {
         this.musicName = musicName;
         this.album = album;
-        this.artistName = artistName;
     }
 
     public void setArtist(Artist artist) {
@@ -36,13 +34,8 @@ public class Music {
         return musicName;
     }
 
-    public String getAlbum() {
-        return album;
-    }
-
     public String toString (){
         return "Música: " + musicName
-                + " / album: " + album
-                + " / artista: " + artistName;
+                + " / album: " + album;
     }
 }

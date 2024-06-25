@@ -14,7 +14,6 @@ public class Main {
 
     private Scanner sc = new Scanner(System.in);
     private SoundRepository repository;
-    private Music music = new Music();
 
     public Main(SoundRepository repository){
         this.repository = repository;
@@ -22,6 +21,7 @@ public class Main {
 
     public void mainMenu(){
         var userChoice = -1;
+
         while(userChoice != 9) {
             var menu = """
                     *** Screen Sounds Aplication ***
@@ -65,58 +65,42 @@ public class Main {
     }
 
     private void registerArtist() {
-        char userChoice = 0;
-        while(userChoice != 'n') {
+        var newRegister = "S";
+        while(newRegister.equalsIgnoreCase("s")) {
             System.out.print("Nome do artista: ");
-            var artist = sc.nextLine();
-            System.out.print("Qual o tipo do artista: ");
+            var name = sc.nextLine();
+            System.out.print("Qual o tipo do artista (solo, dupla ou banda): ");
             var artistType = sc.nextLine();
-            Category category = Category.stringConvert(artistType);
-            System.out.print("Você deseja adicionar outro artista? (s/n)");
-            userChoice = sc.next().toLowerCase().charAt(0);
-            sc.nextLine();
-            Artist artists = new Artist(artist, category);
-            System.out.println(artists);
+            Category category = Category.valueOf(artistType.toUpperCase());
+            Artist artists = new Artist(name, category);
             repository.save(artists);
             System.out.println(artists);
+            System.out.print("Você deseja adicionar outro artista? (s/n)");
+            newRegister = sc.nextLine();
         }
     }
 
     private void registerMusic() {
-        char userChoice = 0;
-        while (userChoice != 'n'){
-
+        System.out.print("Cadastrar música de que artista?: ");
+        var artist = sc.nextLine();
+        Optional<Artist>artistMusic = repository.findByNameContainingIgnoreCase(artist);
+        if(artistMusic.isPresent()){
             System.out.print("Nome da música: ");
-            var music = sc.nextLine();
+            var musicName = sc.nextLine();
             System.out.print("Album: ");
             var album = sc.nextLine();
-            System.out.print("Artista: ");
-            var artist = sc.nextLine();
-            Music musics = new Music(music, album, artist);
-            Optional<Artist>artistMusic = repository.findByNameContainingIgnoreCase(artist);
-
-            if(artistMusic.isPresent()){
-                List<Music> allMusics =new ArrayList<>();
-                allMusics.add(musics);
-
-                var artistFound = artistMusic.get();
-                artistFound.setMusics(allMusics);
-                repository.save(artistFound);
-
-                System.out.println("Música registrada!");
-                allMusics.forEach(System.out::println);
-                System.out.print("Deseja cadastrar outra música?(s/n) ");
-                userChoice = sc.next().charAt(0);
-                sc.nextLine();
-            }else{
-                System.out.println("Registre o artista! ");
-                registerArtist();
-            }
+            Music music = new Music(musicName, album);
+            music.setArtist(artistMusic.get());
+            artistMusic.get().getMusics().add(music);
+            repository.save(artistMusic.get());
+        }else{
+            System.out.println("Artista não encontrado!");
         }
     }
+
     private void musicList() {
-        List<Artist> artists = repository.findMusicByIdEquals(1);
-        artists.forEach(a -> System.out.println(a.getMusics()));
+        List<Artist> artists = repository.findAll();
+        artists.forEach(System.out::println);
     }
 
     private void searchSongsToArtist() {

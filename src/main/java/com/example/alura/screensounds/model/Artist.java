@@ -15,30 +15,29 @@ public class Artist {
     @Column(unique = true)
     private String name;
     @Enumerated(EnumType.STRING)
-    private Category artistType;
+    private Category category;
     @OneToMany(mappedBy = "artist", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Music> musics = new ArrayList<>();
 
-    public Artist(){
+    public Artist() {
     }
 
-    public Artist(String name, Category artistType){
+    public Artist(String name, Category category) {
         this.name = name;
-        this.artistType = artistType;
-    }
-
-    public void setMusics(List<Music> musics) {
-        musics.forEach(m -> m.setArtist(this));
-        this.musics = musics;
+        this.category = category;
     }
 
     public List<Music> getMusics() {
         return musics;
     }
+    public String getName(){
+        return name;
+    }
 
     public String toString(){
         return "Nome: " + name
-                + " / Tipo de artista: " + artistType;
+                + " / Tipo de artista: " + category
+                + " / Musica: " + musics;
     }
 
 }
