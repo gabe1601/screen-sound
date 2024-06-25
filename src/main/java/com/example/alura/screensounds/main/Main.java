@@ -104,6 +104,14 @@ public class Main {
     }
 
     private void searchSongsToArtist() {
+        System.out.print("Digite o artista para pesquisar as músicas: ");
+        var artistName = sc.nextLine();
+        Optional<Artist>searchArtists = repository.findByNameContainingIgnoreCase(artistName);
+        if(searchArtists.isPresent()){
+            searchArtists.stream().forEach(System.out::println);
+        }else{
+            System.out.println("Artista não encontrado!");
+        }
     }
 
     private void searchArtistInfos() {
