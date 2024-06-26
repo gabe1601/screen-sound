@@ -6,7 +6,7 @@ import com.theokanning.openai.service.OpenAiService;
 public class ChatGptQuery {
 
     public static String getInformation (String text){
-        OpenAiService service = new OpenAiService("sk-proj-kNnlrrSYZ8pXtfLgOG1zT3BlbkFJpdAqemCN04u9Ez47sby0");
+        OpenAiService service = new OpenAiService("OPENAI_APIKEY");
 
 
         CompletionRequest request = CompletionRequest.builder()
