@@ -36,6 +36,7 @@ public class Music {
 
     public String toString (){
         return "Música: " + musicName
-                + " / album: " + album;
+                + " / album: " + album
+                + " / artista: " + artist.getName();
     }
 }

@@ -4,6 +4,7 @@ import com.example.alura.screensounds.model.Artist;
 import com.example.alura.screensounds.model.Category;
 import com.example.alura.screensounds.model.Music;
 import com.example.alura.screensounds.repository.SoundRepository;
+import com.example.alura.screensounds.services.ChatGptQuery;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -100,20 +101,20 @@ public class Main {
 
     private void musicList() {
         List<Artist> artists = repository.findAll();
-        artists.forEach(System.out::println);
+        artists.forEach(a->a.getMusics().forEach(System.out::println));
     }
 
     private void searchSongsToArtist() {
         System.out.print("Digite o artista para pesquisar as músicas: ");
-        var artistName = sc.nextLine();
-        Optional<Artist>searchArtists = repository.findByNameContainingIgnoreCase(artistName);
-        if(searchArtists.isPresent()){
-            searchArtists.stream().forEach(System.out::println);
-        }else{
-            System.out.println("Artista não encontrado!");
-        }
+        var name = sc.nextLine();
+        List<Music> musics = repository.searchMusicByArtist(name);
+        musics.forEach(System.out::println);
     }
 
     private void searchArtistInfos() {
+        System.out.print("Pesquisar sobre qual artista?");
+        var name = sc.nextLine();
+        var answer = ChatGptQuery.getInformation(name);
+        System.out.println(answer.trim());
     }
 }
