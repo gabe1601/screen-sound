@@ -105,8 +105,8 @@ public class Main {
     }
 
     private void musicList() {
-        List<Artist> artists = repository.findAll();
-        artists.forEach(a->a.getMusics().forEach(System.out::println));
+        List<Music> musics = repository.findAllMusicsOrderedByArtistName();
+        musics.forEach(System.out::println);
     }
 
     private void searchSongsToArtist() {

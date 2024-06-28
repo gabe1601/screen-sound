@@ -12,9 +12,12 @@ public interface SoundRepository extends JpaRepository<Artist, Long> {
 
     Optional<Artist> findByNameContainingIgnoreCase(String artist);
 
-    @Query("SELECT m FROM Artist a JOIN a.musics m WHERE a.name ILIKE %:name")
+    @Query("SELECT m FROM Artist a JOIN a.musics m WHERE a.name ILIKE %:name% ORDER BY a.name ASC")
     List<Music> searchMusicByArtist(String name);
 
-    @Query("SELECT m FROM Artist a JOIN a.musics m WHERE m.album ILIKE %:album%")
+    @Query("SELECT m FROM Artist a JOIN a.musics m WHERE m.album ILIKE %:album% ORDER BY m.musicName ASC")
     List<Music> searchMusicsByAlbum(String album);
+
+    @Query("SELECT m FROM Artist a JOIN a.musics m ORDER BY a.name")
+    List<Music> findAllMusicsOrderedByArtistName();
 }
