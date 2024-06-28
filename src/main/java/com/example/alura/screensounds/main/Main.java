@@ -5,6 +5,7 @@ import com.example.alura.screensounds.model.Category;
 import com.example.alura.screensounds.model.Music;
 import com.example.alura.screensounds.repository.SoundRepository;
 import com.example.alura.screensounds.services.ChatGptQuery;
+import com.theokanning.openai.OpenAiHttpException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +33,7 @@ public class Main {
                     3 - Listar música
                     4 - Buscar música por artistas
                     5 - Pesquisar dados sobre artista
+                    6 - Pesquisar por album
                                     
                     9 - Sair
                     """;
@@ -54,6 +56,9 @@ public class Main {
                     break;
                 case 5:
                     searchArtistInfos();
+                    break;
+                case 6:
+                    findMusicsForAlbuns();
                     break;
                 case 9:
                     System.out.println();
@@ -114,7 +119,18 @@ public class Main {
     private void searchArtistInfos() {
         System.out.print("Pesquisar sobre qual artista?");
         var name = sc.nextLine();
-        var answer = ChatGptQuery.getInformation(name);
-        System.out.println(answer.trim());
+        try {
+            var answer = ChatGptQuery.getInformation(name);
+            System.out.println(answer.trim());
+        }catch (OpenAiHttpException e){
+            System.out.println("Não foi possível realizar a pesquisa! Erro: " + e);
+        }
+    }
+
+    private void findMusicsForAlbuns(){
+        System.out.print("Digite o nome do album: ");
+        var album = sc.nextLine();
+        List<Music> albuns = repository.searchMusicsByAlbum(album);
+        albuns.forEach(System.out::println);
     }
 }

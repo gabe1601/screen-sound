@@ -3,7 +3,7 @@ package com.example.alura.screensounds.services;
 import com.theokanning.openai.completion.CompletionRequest;
 import com.theokanning.openai.service.OpenAiService;
 
-public class ChatGptQuery {
+public class ChatGptQuery extends Throwable {
 
     public static String getInformation (String text){
         OpenAiService service = new OpenAiService("OPENAI_APIKEY");

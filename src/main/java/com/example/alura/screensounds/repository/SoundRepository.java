@@ -14,4 +14,7 @@ public interface SoundRepository extends JpaRepository<Artist, Long> {
 
     @Query("SELECT m FROM Artist a JOIN a.musics m WHERE a.name ILIKE %:name")
     List<Music> searchMusicByArtist(String name);
+
+    @Query("SELECT m FROM Artist a JOIN a.musics m WHERE m.album ILIKE %:album%")
+    List<Music> searchMusicsByAlbum(String album);
 }
